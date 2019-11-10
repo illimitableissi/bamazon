@@ -1,12 +1,12 @@
-var mysql = require("mysql");
-var inquirer = require("inquirer");
+var mysql = require('mysql');
+var inquirer = require('inquirer');
 
 
 var connection = mysql.createConnection({
     port     : 3306,
     host     : 'localhost',
     user     : 'root',
-    password : 'bamazon',
+    password : 'docker',
     database : 'bamazonDB'
   });
    
@@ -41,7 +41,6 @@ var connection = mysql.createConnection({
     message: "How many units of the product would you like to buy?"
     }
     /* Pass your questions in here */
-
   ])
   .then(answers => {
     // Use user feedback for... whatever!!
