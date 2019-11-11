@@ -20,23 +20,22 @@ var connection = mysql.createConnection({
   });
 
 function displayStock() {
+    connection.query("SELECT * FROM stock", function(err, results) {
+        if (err) throw err;
+        console.table(results)
     inquirer
     .prompt([
         {
         name: "choice",
         type: "rawlist",
         message: "Menu Options",
-        choices: ["View Stock", "Exit"]
+        choices: ["Buy from Stock", "Exit"]
         }  
     ])
     .then(answers => {
         switch(answers.choice) {
-        case "View Stock":
-            connection.query("SELECT * FROM stock", function(err, results) {
-             if (err) throw err;
-            console.table(results)
+        case "Buy from Stock":
             userPrompts(results);
-            });
             break;
         case "Exit":
             console.log("Goodbye")
@@ -44,6 +43,7 @@ function displayStock() {
             break;
         }
     });
+});
 }
 
 function userPrompts(results) {
