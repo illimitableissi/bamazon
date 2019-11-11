@@ -20,13 +20,30 @@ var connection = mysql.createConnection({
   });
 
 function displayStock() {
-    connection.query("SELECT * FROM stock", function(err, results) {
-        if (err) throw err;
-        console.table(results)
-
-    
-    userPrompts(results);
-});
+    inquirer
+    .prompt([
+        {
+        name: "choice",
+        type: "rawlist",
+        message: "Menu Options",
+        choices: ["View Stock", "Exit"]
+        }  
+    ])
+    .then(answers => {
+        switch(answers.choice) {
+        case "View Stock":
+            connection.query("SELECT * FROM stock", function(err, results) {
+             if (err) throw err;
+            console.table(results)
+            userPrompts(results);
+            });
+            break;
+        case "Exit":
+            console.log("Goodbye")
+            connection.end();
+            break;
+        }
+    });
 }
 
 function userPrompts(results) {
@@ -44,7 +61,7 @@ function userPrompts(results) {
     }
   ])
   .then(answers => {
-    if (answers.itemid > results.length ) {
+    if (answers.itemid > results.length) {
         console.log("Invalid input")
         userPrompts();
     }

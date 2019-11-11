@@ -26,7 +26,7 @@ function startManagement(){
         name: "manager",
         type: "rawlist",
         message: "Menu Options",
-        choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product"]
+        choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product", "Exit"]
         }  
     ])
     .then(answers => {
@@ -43,6 +43,9 @@ function startManagement(){
             case "Add New Product":
                 newProduct();
                 break;
+            case "Exit":
+                console.log("Goodbye")
+                connection.end();
         }
     });
 }

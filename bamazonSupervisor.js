@@ -26,7 +26,7 @@ function startSupervisor(){
         name: "supervisor",
         type: "rawlist",
         message: "Menu Options",
-        choices: ["View Product Sales by Department", "Create New Department"]
+        choices: ["View Product Sales by Department", "Create New Department", "Exit"]
         }  
     ])
     .then(answers => {
@@ -35,7 +35,10 @@ function startSupervisor(){
                 viewSales();
                 break;
             case "Create New Department":
-                newDepartment();          
+                newDepartment();
+            case "Exit":
+                console.log("Goodbye")
+                connection.end();          
         }
     });
 }
