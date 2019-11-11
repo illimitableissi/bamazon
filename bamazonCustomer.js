@@ -42,18 +42,11 @@ function userPrompts(results) {
     type: "input",
     message: "How many units of the product would you like to buy?"
     }
-    /* Pass your questions in here */
   ])
   .then(answers => {
-    if (answers.itemid > results.length || isNaN(answers.itemid) || isNaN(answers.quantity)) 
-        {
-            console.log("invalid Input");
-        if (answers.itemid > results.length || isNaN(answers.itemid)) {
-          console.log("The item id is not valid");
-        }
-        if (isNaN(answers.quantity)) {
-          console.log("Invalid quantity");
-        }
+    if (answers.itemid > 10 ) {
+        console.log("Invalid input")
+        userPrompts();
     }
     else{
         updateProduct(answers);
