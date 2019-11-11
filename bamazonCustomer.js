@@ -52,23 +52,28 @@ function userPrompts(results) {
       {
     name: "itemid",
     type: "input",
-    message: "What is the ID of the product you would like to buy?"
+    message: "What is the ID of the product you would like to buy?",
+    validate: function(value) {
+        if (value > 0 && isNaN(value) === false && value <= results.length) {
+          return true;
+        }
+        return false;
+      }
     },
     {
     name: "quantity",
     type: "input",
-    message: "How many units of the product would you like to buy?"
+    message: "How many units of the product would you like to buy?",
+    validate: function(value) {
+        if (value > 0 && isNaN(value) === false) {
+          return true;
+        }
+        return false;
+      }
     }
   ])
   .then(answers => {
-    if (answers.itemid > results.length) {
-        console.log("Invalid input")
-        userPrompts();
-    }
-    else{
         updateProduct(answers);
-    }
-  
     });
 }
 
