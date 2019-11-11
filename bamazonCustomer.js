@@ -68,16 +68,7 @@ if (answers.quantity > results[0].stock_quantity) {
     
 } else {
     console.log(`Your price is ${itemPrice}!`);
-    connection.query("UPDATE stock SET ? WHERE ?",
-      [
-        {
-          stock_quantity: currentQuantity
-        },
-        {
-
-          item_id: itemChoice
-        }
-    ],
+    connection.query(`UPDATE stock SET stock_quantity = ${currentQuantity} WHERE item_id = ${itemChoice}`,
       function(err, results) {
         if (err) throw err;
       }
@@ -86,6 +77,4 @@ if (answers.quantity > results[0].stock_quantity) {
     }
 });
 }
-
-
 displayStock()
