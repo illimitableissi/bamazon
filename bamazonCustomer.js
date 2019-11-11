@@ -44,7 +44,7 @@ function userPrompts(results) {
     }
   ])
   .then(answers => {
-    if (answers.itemid > 10 ) {
+    if (answers.itemid > results.length ) {
         console.log("Invalid input")
         userPrompts();
     }
