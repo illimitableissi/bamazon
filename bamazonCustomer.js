@@ -66,8 +66,13 @@ function updateProduct(answers) {
             console.log("Insufficient quantity!")
             userPrompts(); 
      } else {
+        var sales = parseFloat(results[0].price * answers.quantity + results[0].product_sales).toFixed(2)
              console.log(`Your price is ${itemPrice}!`);
-             connection.query(`UPDATE stock SET stock_quantity = ${currentQuantity} WHERE item_id = ${itemChoice}`,
+             connection.query(`UPDATE stock SET ? WHERE item_id = ${itemChoice}`, 
+             {
+                 stock_quantity: currentQuantity,
+                 product_sales: sales
+             },
                  function(err, results) {
                     if (err) throw err;
                          displayStock()
