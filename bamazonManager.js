@@ -51,6 +51,7 @@ function displayStock() {
     connection.query("SELECT * FROM stock", function(err, results) {
         if (err) throw err;
         console.table(results)
+        startManagement();
     });
 }
 
@@ -58,6 +59,7 @@ function lowInventory(){
     connection.query("SELECT * FROM stock WHERE stock_quantity < 5", function(err, results) {
         if (err) throw err;
         console.table(results)
+        startManagement();
     });
     
 };
@@ -83,10 +85,13 @@ function addInventory(){
             connection.query(`SELECT * FROM stock WHERE item_id = ${itemID}`, function(err, results) {
             currentQuantity = results[0].stock_quantity
             newQuantity = currentQuantity + itemQuantity
+            itemName = results[0].product_name
 
             connection.query(`UPDATE stock SET stock_quantity = ${newQuantity} WHERE item_id = ${itemID}`,          
           function(err, results) {
             if (err) throw err;
+            console.log(`The quantity of ${itemName} was increased by ${itemQuantity}.`)
+            startManagement();
           }
         );
     });
@@ -115,11 +120,24 @@ function newProduct(){
             {
             name: "stockquantity",
             type: "input",
-            message: "How much quantity do you want of the product?",
+            message: "How much stock do you want added to the database?",
             }            
         ])
         .then(answers => {
-             connection.query(`INSERT INTO stock (product_name, department_name, price, stock_quantity`, function(err, results){});
+            var addPrice = parseFloat(answers.price).toFixed(2)
+            var addStock = parseInt(answers.stockquantity)
+             connection.query("INSERT INTO stock SET ?",
+             {
+                 product_name: answers.productname, 
+                 department_name: answers.departmentname, 
+                 price: addPrice, 
+                 stock_quantity: addStock,
+            }, 
+            function(err, results){
+                if (err) throw err;
+                console.table(`${answers.productname} was added to the database.`)
+                startManagement();
+             });
         });
 
 

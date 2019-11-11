@@ -59,22 +59,22 @@ function userPrompts(results) {
 function updateProduct(answers) {
     var itemChoice = parseInt(answers.itemid)
     connection.query(`SELECT * FROM stock WHERE item_id = ${itemChoice}`, function(err, results) {
-    var itemPrice = results[0].price * answers.quantity
-    var currentQuantity = results[0].stock_quantity - answers.quantity
+        var itemPrice = results[0].price * answers.quantity
+        var currentQuantity = results[0].stock_quantity - answers.quantity
 
-if (answers.quantity > results[0].stock_quantity) {
-    console.log("Insufficient quantity!")
-    userPrompts();
-    
-} else {
-    console.log(`Your price is ${itemPrice}!`);
-    connection.query(`UPDATE stock SET stock_quantity = ${currentQuantity} WHERE item_id = ${itemChoice}`,
-      function(err, results) {
-        if (err) throw err;
-      }
-    );
-    displayStock()
-    }
-});
+        if (answers.quantity > results[0].stock_quantity) {
+            console.log("Insufficient quantity!")
+            userPrompts(); 
+     } else {
+             console.log(`Your price is ${itemPrice}!`);
+             connection.query(`UPDATE stock SET stock_quantity = ${currentQuantity} WHERE item_id = ${itemChoice}`,
+                 function(err, results) {
+                    if (err) throw err;
+                         displayStock()
+                        }
+                    );
+                }
+        });
 }
+
 displayStock()
