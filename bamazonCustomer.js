@@ -19,20 +19,22 @@ var connection = mysql.createConnection({
     console.log('connected as id ' + connection.threadId);
   });
 
-  function startQuestions() {
+function displayStock() {
     connection.query("SELECT * FROM stock", function(err, results) {
         if (err) throw err;
+        console.table(results)
+
+    
+    userPrompts(results);
+});
+}
+
+function userPrompts(results) {
   inquirer
   .prompt([
       {
-    name: "itemiD",
+    name: "itemid",
     type: "input",
-    choices: function() {
-        var idArray = [];
-        for (var i = 0; i < results.length; i++) {
-            idArray.push(results[i].item_id)
-        }
-    },
     message: "What is the ID of the product you would like to buy?"
     },
     {
@@ -43,7 +45,54 @@ var connection = mysql.createConnection({
     /* Pass your questions in here */
   ])
   .then(answers => {
-    // Use user feedback for... whatever!!
-  });
-  });
+    if (answers.itemid > results.length || isNaN(answers.itemid) || isNaN(answers.quantity)) 
+        {
+            console.log("invalid Input");
+        if (answers.itemid > results.length || isNaN(answers.itemid)) {
+          console.log("The item id is not valid");
+        }
+        if (isNaN(answers.quantity)) {
+          console.log("Invalid quantity");
+        }
+    }
+    else{
+        updateProduct(answers);
+    }
+  
+    });
 }
+
+
+function updateProduct(answers) {
+    var itemChoice = parseInt(answers.itemid)
+    connection.query(`SELECT * FROM stock WHERE item_id = ${itemChoice}`, function(err, results) {
+    var itemPrice = results[0].price * answers.quantity
+    var currentQuantity = results[0].stock_quantity - answers.quantity
+
+if (answers.quantity > results[0].stock_quantity) {
+    console.log("Insufficient quantity!")
+    userPrompts();
+    
+} else {
+    console.log(`Your price is ${itemPrice}!`);
+    connection.query("UPDATE stock SET ? WHERE ?",
+      [
+        {
+          stock_quantity: currentQuantity
+        },
+        {
+
+          item_id: itemChoice
+        }
+    ],
+      function(err, results) {
+        if (err) throw err;
+      }
+    );
+    displayStock()
+    }
+});
+}
+
+
+displayStock()
