@@ -47,6 +47,6 @@ VALUES ("Final Fantasy VII Remake", "Video Games", 59.99, 20, 0);
 CREATE TABLE departments (
 department_id INT NOT NULL AUTO_INCREMENT,
 department_name VARCHAR(30) NULL,
-over_head_costs INT NOT NULL
-PRIMARY KEY (department_id
+over_head_costs DECIMAL(10,2) NULL
+PRIMARY KEY (department_id)
 );
