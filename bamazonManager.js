@@ -68,18 +68,32 @@ function lowInventory(){
 };
 
 
-function addInventory(){
+function addInventory(results){
     inquirer
     .prompt([ 
             {
             name: "itemid",
             type: "input",
-            message: "What is the item ID of the item you wish to update?"
+            message: "What is the item ID of the item you wish to update?",
+            validate: function(value) {
+                if (isNaN(value) === false) {
+                  return true;
+                }
+                return false;
+              }
             },
             {
             name: "quantity",
             type: "input",
             message: "How much do you want to add?",
+            validate: (value) => {
+                if (!isNaN(value) && value > 0) {
+                    return true;
+                } else {
+                    console.log("Please enter a number greater than 0");
+                    return false;
+                }
+             }
             }
         ])
         .then(answers => {
@@ -119,11 +133,27 @@ function newProduct(){
             name: "price",
             type: "input",
             message: "What is the price of the product?",
+            validate: (value) => {
+                if (!isNaN(value) && value > 0) {
+                    return true;
+                } else {
+                    console.log("Please enter a number greater than 0");
+                    return false;
+                }
+             }
             },
             {
             name: "stockquantity",
             type: "input",
             message: "How much stock do you want added to the database?",
+            validate: (value) => {
+                if (!isNaN(value) && value > 0) {
+                    return true;
+                } else {
+                    console.log("Please enter a number greater than 0");
+                    return false;
+                }
+             }
             }            
         ])
         .then(answers => {

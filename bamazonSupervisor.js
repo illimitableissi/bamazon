@@ -36,6 +36,7 @@ function startSupervisor(){
                 break;
             case "Create New Department":
                 newDepartment();
+                break;
             case "Exit":
                 console.log("Goodbye")
                 connection.end();          

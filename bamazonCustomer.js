@@ -86,7 +86,7 @@ function updateProduct(answers) {
 
         if (answers.quantity > results[0].stock_quantity) {
             console.log("Insufficient quantity!")
-            userPrompts(results); 
+            displayStock(); 
      } else {
         var sales = parseFloat(results[0].price * answers.quantity + results[0].product_sales).toFixed(2)
              console.log(`Your price is ${itemPrice}!`);
