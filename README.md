@@ -1,14 +1,14 @@
 # Bamazon
 
-##Description
+## Description
 
 Bamazon is an Amazon-like storefront created with MySQL. The app will take in orders from customers and deplete stock from the store's inventory. Bamazon will also track product sales across the store's departments and then provide a summary of the highest-grossing departments in the store.
 
-##Video
+## Video
 
 This [video](/videos/bamazon.mp4) showcases the app in action.
 
-##Technology Used
+## Technology Used
 
 * Node.js
 * MySQL
@@ -16,11 +16,14 @@ This [video](/videos/bamazon.mp4) showcases the app in action.
 * inquirer
 
 
-##How to Use the App
+## How to Use the App
 
 Add the bamazonDB.sql database entries to your MySQL Workbench.
 
-###Customers
+![MySQL](/screenshots/mysql.PNG)
+
+
+### Customers
 
 Run this application in the terminal:
 
@@ -32,7 +35,7 @@ Run this application in the terminal:
 2. Exit
   - Exits the program.
 
-###Managers
+### Managers
 
 Run this application in the terminal:
 
@@ -54,7 +57,7 @@ Run this application in the terminal:
   - Exits the program.
 
 
-###Supervisors
+### Supervisors
 
 Run this application in the terminal:
 
